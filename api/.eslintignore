@@ -1,0 +1,6 @@
+/*.js'
+node_modules
+dist
+node_modules
+.eslintrc.js
+src/lambda/decorators/*

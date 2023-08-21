@@ -1,0 +1,9 @@
+Todo:
+  - [ ] Create a PG database
+  - [ ] Create a table for user and a table
+  - [ ] Create a table for the user's contents
+  - [ ] Create a test suite
+  - [ ] Complete the backend API
+  - [ ] Complete the frontend
+  - [ ] Develop a readme to frontend and backend
+  - [ ] Insert on Docker Containers and Docker Compose
