@@ -18,7 +18,6 @@ This application complents a full CRUD for a user entity, one form how insert on
 - Yarn
 - Docker
 
-
 ### Development
 
 Start Docker in your machine.
@@ -36,3 +35,5 @@ Run the containers:
 ```bash
 docker compose up -d
 ```
+
+The postgres container will be running on port 5432, the API container will be running on port 3000 and the APP container will be running on port 5137.
