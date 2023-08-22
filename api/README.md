@@ -57,6 +57,11 @@ To run the migrations:
 yarn migrate
 ```
 
+For seed the DB for tests you can use:
+```
+yarn seed
+```
+
 After all, you can test the API and start the server:
 
 
