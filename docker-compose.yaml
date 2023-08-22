@@ -10,6 +10,8 @@ services:
       - 3000:3000
     environment:
       DATABASE_URL: postgres://root:123456@db:5432/eteg-exam
+    networks:
+      - eteg-exam-network
   # app:
   #   build:
   #     context: ./app
@@ -26,3 +28,8 @@ services:
       - ./db/data:/var/lib/postgresql/data
     ports:
       - 5432:5432
+    networks:
+      - eteg-exam-network
+networks:
+  eteg-exam-network:
+    driver: bridge
