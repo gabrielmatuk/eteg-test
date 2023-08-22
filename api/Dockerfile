@@ -4,8 +4,9 @@ WORKDIR /app
 
 COPY yarn*.lock ./
 COPY ./package.json ./
+COPY ./prisma ./prisma
 
-RUN yarn
+RUN yarn install
 
 COPY . .
 

@@ -10,11 +10,11 @@ services:
       - 3000:3000
     environment:
       DATABASE_URL: postgres://root:123456@db:5432/eteg-exam
-  app:
-    build:
-      context: ./app
-    ports:
-      - 8080:8080
+  # app:
+  #   build:
+  #     context: ./app
+  #   ports:
+  #     - 8080:8080
   db:
     image: postgres:latest
     environment:
