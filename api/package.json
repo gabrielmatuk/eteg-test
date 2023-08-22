@@ -25,7 +25,7 @@
     "start": "node -r tsconfig-paths/register -r ts-node/register ./src/server.ts",
     "db": "node src/scripts/setup-env.js",
     "dev": "nodemon",
-    "prestart": "npx prisma migrate dev --name initialize && npx prisma db seed"
+    "prestart": "npx prisma migrate dev --name initialize"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",
