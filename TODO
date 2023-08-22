@@ -1,9 +1,18 @@
 Todo:
   - [x] Create a PG database
-  - [ ] Create a table for user and a table
-  - [ ] Create a table for the user's contents
-  - [ ] Create a test suite
-  - [ ] Complete the backend API
-  - [ ] Complete the frontend
-  - [ ] Develop a readme to frontend and backend
-  - [ ] Insert on Docker Containers and Docker Compose
+  - [x] Create a table for the user's contents
+  - [x] Create a test suite
+  - [x] Complete the backend API
+  - [x] Complete the frontend
+  - [x] Develop a readme to frontend and backend
+  - [x] Insert on Docker Containers and Docker Compose
+
+
+  To improve:
+  - [ ] Create a login page
+  - [ ] Create a login route
+  - [ ] Create a register page
+  - [ ] Create a ADMIN page
+  - [ ] Create a page to edit the user's profile
+  - [ ] Create a page to show the user's contents
+  - [ ] Better error messages
