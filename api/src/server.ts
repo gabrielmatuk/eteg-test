@@ -1,10 +1,10 @@
 import 'express-async-errors';
 import express from 'express';
 import cors from 'cors';
-import routes from './routes';
+import routes from '@routes'
 
-import { errorHandler } from './middlewares/error-handler.middleware';
-import { PORT } from '../src/config'
+import { errorHandler } from '@middlewares/error-handler.middleware'
+import { PORT } from '@src/config'
 
 const app = express();
 

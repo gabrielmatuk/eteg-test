@@ -52,8 +52,8 @@ const deleteUser = async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params
     if (!id) throw new CustomError(400, 'O campo id é um paramêtro obrigatório.')
 
-    const user = await UserServices.deleteUserInDatabase(+id)
-    res.status(200).json(user)
+    await UserServices.deleteUserInDatabase(+id)
+    res.status(204)
   } catch (error: any) {
     next(new CustomError(error.statusCode, error.message))
   }

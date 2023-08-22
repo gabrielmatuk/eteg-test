@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    "target": "ES2022",
     "module": "commonjs",
     "lib": [
-      "es2020"
+      "es2020",
     ],
     "esModuleInterop": true,
     "declaration": true,
@@ -23,7 +23,30 @@
     "typeRoots": [
       "./node_modules/@types"
     ],
-    "baseUrl": "./",
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": [
+        "./src/*"
+      ],
+      "@controllers/*": [
+        "./src/controllers/*"
+      ],
+      "@models/*": [
+        "./src/models/*"
+      ],
+      "@middlewares/*": [
+        "./src/middlewares/*"
+      ],
+      "@services/*": [
+        "./src/services/*"
+      ],
+      "@routes": [
+        "./src/routes/index.ts"
+      ],
+      "@errors/*": [
+        "./src/errors/*"
+      ],
+    }
   },
   "exclude": [
     "node_modules",

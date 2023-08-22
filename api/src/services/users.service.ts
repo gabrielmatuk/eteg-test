@@ -1,4 +1,4 @@
-import UserModel from '../models/users.model';
+import UserModel from "@models/users.model"
 
 const listAllUsers = async () => {
   return UserModel.listAllUsers();
