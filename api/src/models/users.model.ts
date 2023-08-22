@@ -6,6 +6,7 @@ const prisma = new PrismaClient()
 const listAllUsers = async () => {
   try {
     const user = prisma.user.findMany()
+    if (!user) return []
     return user
   } catch (error) {
     console.log(JSON.stringify(error))
