@@ -8,7 +8,9 @@ services:
     ports:
       - 3000:3000
     environment:
-      DATABASE_URL: postgres://root:123456@db:5432/eteg-exam
+      - DATABASE_URL=postgres://root:123456@db:5432/eteg-exam
+      - WAIT_HOSTS=db:5432
+      - WAIT_SLEEP_INTERVAL=20
     networks:
       - eteg-exam-network
   app:
