@@ -1,7 +1,7 @@
 #Ignore Develop tools
 !.eslintrc.js
 !jest.config.js
-
+db/*
 # Logs
 logs
 *.log
