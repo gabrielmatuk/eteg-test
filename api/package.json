@@ -4,10 +4,28 @@
   "main": "index.js",
   "author": "Gabriel Matuk",
   "license": "MIT",
+  "nodemonConfig": {
+    "ignore": [
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      ".git",
+      "node_modules"
+    ],
+    "watch": [
+      "src"
+    ],
+    "exec": "node -r tsconfig-paths/register -r ts-node/register ./src/server.ts",
+    "ext": "ts, js"
+  },
   "scripts": {
     "lint": "eslint \"{src,apps,libs,test,spec}/**/*.ts\" --fix",
     "lint:check": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix --quiet",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\""
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "test": "jest",
+    "start": "node -r tsconfig-paths/register -r ts-node/register ./src/server.ts",
+    "db": "node src/scripts/setup-env.js",
+    "dev": "nodemon",
+    "prestart": "npx prisma migrate dev --name initialize && npx prisma db seed"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",
@@ -26,19 +44,25 @@
     "eslint-plugin-n": "^16.0.1",
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-promise": "^6.1.1",
-    "express": "^4.18.2",
     "jest": "^29.6.3",
     "nodemon": "^3.0.1",
     "prettier": "^3.0.2",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.1.6"
   },
   "dependencies": {
+    "@prisma/client": "^5.1.1",
     "axios": "^1.4.0",
     "axios-mock-adapter": "^1.21.5",
     "eslint": "^8.47.0",
+    "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
     "path": "^0.12.7",
     "source-map-support": "^0.5.21"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   }
 }

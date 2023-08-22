@@ -1,5 +1,5 @@
 Todo:
-  - [ ] Create a PG database
+  - [x] Create a PG database
   - [ ] Create a table for user and a table
   - [ ] Create a table for the user's contents
   - [ ] Create a test suite

@@ -2,12 +2,13 @@ FROM node:16-alpine
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY yarn*.lock ./
+COPY ./package.json ./
+COPY ./prisma ./prisma
 
-RUN npm install
+RUN yarn install
 
 COPY . .
 
 EXPOSE 3000
-
-CMD ["npm", "run", "dev"]
+CMD ["yarn", "start"]
