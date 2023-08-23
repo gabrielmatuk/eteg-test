@@ -10,6 +10,7 @@ import ReactLoading from "react-loading";
 import AxiosRequests from './api';
 
 import "./App.css";
+import { ERRORS_API } from './constants/api';
 
 const App: React.FC = () => {
   const [loading, setLoading] = React.useState(false);
@@ -56,10 +57,10 @@ const App: React.FC = () => {
       setLoading(false);
       /* eslint-disable-next-line */
     } catch (err: any) {
-      console.log(JSON.stringify(err.response.data))
+      console.log(JSON.stringify(err.response.data.error))
       const responseErrorMessage = String(err.response.data.error)
-      if (responseErrorMessage.includes('email')) toast.error("Email já cadastrado!");
-      if (responseErrorMessage.includes('cpf')) toast.error("CPF já cadastrado!");
+      if (responseErrorMessage === ERRORS_API.EMAIL) toast.error("Email já cadastrado!");
+      if (responseErrorMessage === ERRORS_API.CPF) toast.error("CPF já cadastrado!");
       setLoading(false);
     }
   }
