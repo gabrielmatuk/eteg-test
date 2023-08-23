@@ -17,7 +17,6 @@ export const errorHandler = (
       },
     };
     if (!err.code) delete error.error.code;
-    // Error on console -> console.log(error)
     return res.status(err.status).json(error);
   }
   return res.status(500).json({ error: 'Internal Server Error' });
