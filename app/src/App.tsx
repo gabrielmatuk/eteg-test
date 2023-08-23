@@ -17,7 +17,7 @@ const App: React.FC = () => {
     color: "#f17013",
     observations: "",
   });
-  const { loading, makeRequest, error, status } = useRequest();
+  const { loading, makeRequest, error } = useRequest();
 
   const initialFormData = {
     name: "",
