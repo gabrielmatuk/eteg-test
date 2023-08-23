@@ -12,9 +12,7 @@ export const errorHandler = (
   if (err instanceof CustomError) {
     const error = {
       error: {
-        status: 'failed',
         message: err.message,
-        details: err.payload || null,
       },
     };
     // Error on console -> console.log(error)
