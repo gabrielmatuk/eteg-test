@@ -20,9 +20,9 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
     console.log(req.body);
     const { name, email, cpf, color } = req.body;
 
-    if (validators.CPFValidation(cpf))
+    if (!validators.CPFValidation(cpf))
       throw new CustomError(400, 'CPF inválido');
-    if (validators.emailValidation(email))
+    if (!validators.emailValidation(email))
       throw new CustomError(400, 'Email inválido');
 
     if (!name || !email || !cpf || !color) {
