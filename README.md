@@ -33,7 +33,11 @@ sudo /etc/init.d/docker start
 ```
 Run the containers:
 ```bash
-docker compose up -d
+docker compose up --build -d
+```
+or if you want see then:
+```bash	
+docker compose up --build
 ```
 
 <b>The postgres container will be running on port 5432, the API container will be running on port 3000 and the APP container will be running on port 5137.
