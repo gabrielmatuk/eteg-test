@@ -19,9 +19,7 @@ rl.question('Informe o Banco de dados: (eteg-exam)', (dbPostgres) => {
           const databaseUrl = `DATABASE_URL=postgres://${dbUser}:${dbPswd}@${dbHost}:${dbPort}/${dbPostgres}`;
 
           if (fs.existsSync('.env')) {
-            // Ler o conteúdo atual do arquivo
             const envContent = fs.readFileSync('.env', 'utf8');
-            // Substituir a linha com DATABASE_URL ou adicionar se não existir
             const updatedEnvContent = envContent.replace(/DATABASE_URL=.*/, databaseUrl);
             fs.writeFileSync('.env', updatedEnvContent);
           } else {
