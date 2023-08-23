@@ -7,6 +7,7 @@ interface FormFieldProps {
   placeholder: string;
   required?: boolean;
   value: string;
+  maxlength?: number;
   onChange: (value: string) => void;
 }
 
@@ -18,6 +19,7 @@ const FormField: React.FC<FormFieldProps> = ({
   required,
   value,
   onChange,
+  maxlength
 }) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
@@ -33,6 +35,7 @@ const FormField: React.FC<FormFieldProps> = ({
         placeholder={placeholder}
         required={required}
         value={value}
+        maxLength={maxlength}
         onChange={handleInputChange}
       />
     </div>

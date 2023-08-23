@@ -37,7 +37,7 @@ const UserForm: React.FC<UserFormProps> = ({ data, updateFieldHandler, onColorCh
         <FormField label='Email' type='email' name='email' placeholder='Digite seu e-mail' required value={data.email || ""} onChange={(value) => handleFieldChange("email", value)}></FormField>
       </div>
       <div className="form-control">
-        <FormField label='CPF' type='text' name='cpf' placeholder='Digite seu CPF' required value={data.cpf || ""} onChange={(value) => handleFieldChange("cpf", value)}></FormField>
+        <FormField label='CPF' maxlength={13} type='text' name='cpf' placeholder='Digite seu CPF' required value={data.cpf || ""} onChange={(value) => handleFieldChange("cpf", value)}></FormField>
       </div>
       <div className="form-control">
         <label htmlFor="comments">Observações:</label>
