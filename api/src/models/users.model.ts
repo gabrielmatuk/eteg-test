@@ -36,11 +36,11 @@ const createUserInDatabase = async (
     const user = prisma.user.create({
       data: contentForCreateUser,
     });
+    console.log('Está aqui?')
+    console.log(user)
     return user;
     /* eslint-disable-next-line */
   } catch (error: any) {
-    console.log('Está aqui?')
-
     if (
       error instanceof Prisma.PrismaClientKnownRequestError &&
       error.code === 'P2002'
