@@ -2,7 +2,7 @@ import userServices from '../src/services/users.service';
 
 describe('User Services', () => {
   it('should update a user in the database', async () => {
-    const userIdToUpdate = 2; // ID do usuário a ser atualizado
+    const userIdToUpdate = 2;
 
     const updatedUserData = {
       name: 'User Test Updated',
