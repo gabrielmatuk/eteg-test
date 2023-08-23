@@ -38,30 +38,38 @@ const createUserInDatabase = async (
     });
     return user;
     /* eslint-disable-next-line */
-  } catch (error: any) {
+  } catch (error: unknown) {
     if (
       error instanceof Prisma.PrismaClientKnownRequestError &&
       error.code === 'P2002'
     ) {
       if (error.meta) {
         const meta = error.meta;
-        const target = meta.target;
-        if (target === 'cpf') {
-          throw new CustomError({
-            status: 400,
-            message: 'CPF já cadastrado',
-          });
-        }
-        if (target === 'email') {
-          throw new CustomError({
-            status: 400,
-            message: 'Email já cadastrado',
-          });
+
+        if (Array.isArray(meta.target) && meta.target.length > 0) {
+          const target: unknown = meta.target[0];
+          // Agora você pode trabalhar com o valor de 'target'
+          if (target === 'cpf') {
+            throw new CustomError({
+              status: 400,
+              message: 'CPF já cadastrado',
+            });
+          }
+          if (target === 'email') {
+            throw new CustomError({
+              status: 400,
+              message: 'Email já cadastrado',
+            });
+          }
+        } else {
+          console.log(JSON.stringify(error));
+          throw new CustomError({ status: 500, message: 'Erro on create User - meta empty' });
         }
       }
-      console.log(JSON.stringify(error));
-      throw new CustomError({ status: 500, message: 'Erro on create User' });
+
     }
+    console.log(JSON.stringify(error));
+
     throw new CustomError({ status: 500, message: 'Erro on create User' });
 
   };
