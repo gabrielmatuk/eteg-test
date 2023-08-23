@@ -46,16 +46,14 @@ const App: React.FC = () => {
     e.preventDefault();
     await makeRequest(URL, METHODS_HTML.POST, formData)
     if (!error) {
-      if (status === 201 || status === 200) {
-        toast.success("Dados enviados com sucesso!");
-        setFormData(initialFormData);
-      } else if (error === 'email') {
-        toast.error("Email já cadastrado!");
-      } else if (error === 'cpf') {
-        toast.error("CPF já cadastrado!");
-      } else {
-        toast.error("Erro ao salvar usuário!");
-      }
+      toast.success("Dados enviados com sucesso!");
+      setFormData(initialFormData);
+    } else if (error === 'email') {
+      toast.error("Email já cadastrado!");
+    } else if (error === 'cpf') {
+      toast.error("CPF já cadastrado!");
+    } else {
+      toast.error("Erro ao salvar usuário!");
     }
   }
 
