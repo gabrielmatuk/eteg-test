@@ -15,4 +15,4 @@ Todo:
   - [ ] Create a ADMIN page
   - [ ] Create a page to edit the user's profile
   - [ ] Create a page to show the user's contents
-  - [ ] Better error messages
+  - [x] Better error messages
