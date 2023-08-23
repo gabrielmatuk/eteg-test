@@ -1,12 +1,16 @@
 import React from "react";
+import "react-toastify/dist/ReactToastify.css";
+
 import UserForm from "./components/UserForm";
+
 import { ColorResult } from 'react-color';
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import ReactLoading from "react-loading";
-import "./App.css";
-import AxiosRequests from './api';
 import { CPFValidation } from './validators'
+import ReactLoading from "react-loading";
+import AxiosRequests from './api';
+
+import "./App.css";
+
 const App: React.FC = () => {
   const [loading, setLoading] = React.useState(false);
   const [formData, setFormData] = React.useState({
@@ -50,6 +54,7 @@ const App: React.FC = () => {
       toast.success("Usuário cadastrado com sucesso!");
       setFormData(initialFormData);
       setLoading(false);
+      /* eslint-disable-next-line */
     } catch (err: any) {
       const responseErrorMessage = String(err.response.data.error)
       if (responseErrorMessage.includes('email')) toast.error("Email já cadastrado!");
