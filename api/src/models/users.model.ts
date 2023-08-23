@@ -39,11 +39,12 @@ const createUserInDatabase = async (
     return user;
     /* eslint-disable-next-line */
   } catch (error: any) {
+    console.log('Está aqui?')
+
     if (
       error instanceof Prisma.PrismaClientKnownRequestError &&
       error.code === 'P2002'
     ) {
-      console.log('Está aqui?')
       throw new CustomError({
         status: 400,
         message: 'Email ou CPF já cadastrado',
