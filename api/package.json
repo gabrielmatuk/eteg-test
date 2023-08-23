@@ -22,10 +22,11 @@
     "lint:check": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix --quiet",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "test": "jest",
-    "start": "yarn seed && node -r tsconfig-paths/register -r ts-node/register ./src/server.ts",
+    "start": "node -r tsconfig-paths/register -r ts-node/register ./src/server.ts",
     "db": "node src/scripts/setup-env.js",
-    "dev": "nodemon",
+    "dev": "yarn seed && nodemon",
     "prestart": "npx prisma migrate dev --name initialize",
+    "predev": "npx prisma migrate dev --name develop",
     "generate": "npx prisma generate",
     "seed": "npx prisma db seed "
   },
