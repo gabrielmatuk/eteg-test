@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserForm from "./components/UserForm";
 import { ColorResult } from 'react-color';
 import { ToastContainer, toast } from "react-toastify";
@@ -45,7 +45,9 @@ const App: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await request(URL, METHODS_HTML.POST, formData)
+    useEffect(() => {
+      request(URL, METHODS_HTML.POST, formData)
+    }, [data])
     // await makeRequest(URL, METHODS_HTML.POST, formData)
     console.log(JSON.stringify(data))
     if (!error) {
