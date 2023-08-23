@@ -57,8 +57,7 @@ const App: React.FC = () => {
       setLoading(false);
       /* eslint-disable-next-line */
     } catch (err: any) {
-      console.log(JSON.stringify(err.response.data.error))
-      const responseErrorMessage = String(err.response.data.error)
+      const responseErrorMessage = String(err.response.data.error.code)
       if (responseErrorMessage === ERRORS_API.EMAIL) toast.error("Email já cadastrado!");
       if (responseErrorMessage === ERRORS_API.CPF) toast.error("CPF já cadastrado!");
       setLoading(false);
