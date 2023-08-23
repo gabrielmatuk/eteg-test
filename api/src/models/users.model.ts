@@ -11,7 +11,7 @@ const listAllUsers = async () => {
     return user;
   } catch (error) {
     console.log(JSON.stringify(error));
-    throw new CustomError(404, 'Error  to list all users');
+    throw new CustomError({ status: 500, message: 'Error to list all users' });
   }
 };
 
@@ -43,10 +43,13 @@ const createUserInDatabase = async (
       error instanceof Prisma.PrismaClientKnownRequestError &&
       error.code === 'P2002'
     ) {
-      throw new CustomError(400, 'Email or CPF already exists');
+      throw new CustomError({
+        status: 400,
+        message: 'Email ou CPF já cadastrado',
+      });
     }
     console.log(JSON.stringify(error));
-    throw new CustomError(502, 'Error to create user');
+    throw new CustomError({ status: 500, message: 'Erro on create User' });
   }
 };
 
@@ -78,7 +81,10 @@ const updateUserInDatabase = async (
     return user;
   } catch (error) {
     console.log(JSON.stringify(error));
-    throw new CustomError(500, `Error to update User with id: ${id}`);
+    throw new CustomError({
+      status: 500,
+      message: `Error to update User with id: ${id}`,
+    });
   }
 };
 
@@ -92,7 +98,10 @@ const deleteUserInDatabase = async (id: number) => {
     return user;
   } catch (error) {
     console.log(JSON.stringify(error));
-    throw new CustomError(500, `Error to delete User with id: ${id}`);
+    throw new CustomError({
+      status: 500,
+      message: `Error to delete User with id: ${id}`,
+    });
   }
 };
 

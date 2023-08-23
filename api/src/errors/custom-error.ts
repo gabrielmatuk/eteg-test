@@ -1,11 +1,17 @@
 class CustomError extends Error {
-  constructor(
-    public status: number,
-    message: string,
-  ) {
-    super(message);
-    this.status = status;
-    this.name = this.constructor.name;
+  status: number;
+
+  payload: object | undefined | string;
+
+  constructor(options: {
+    message: string;
+    status: number;
+    payload?: object | undefined | string;
+  }) {
+    super();
+    this.message = options.message;
+    this.status = options.status;
+    this.payload = options.payload;
   }
 }
 
