@@ -6,6 +6,8 @@ describe('User Services', () => {
 
     const deletedUser = await userServices.deleteUserInDatabase(userIdToDelete);
 
-    expect(deletedUser).toEqual(expect.objectContaining({ id: userIdToDelete }));
+    expect(deletedUser).toEqual(
+      expect.objectContaining({ id: userIdToDelete }),
+    );
   });
 });

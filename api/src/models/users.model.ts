@@ -1,78 +1,97 @@
-import { PrismaClient } from '@prisma/client'
-import CustomError from "@errors/custom-error";
+import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient()
+import CustomError from '@errors/custom-error';
+
+const prisma = new PrismaClient();
 
 const listAllUsers = async () => {
   try {
-    const user = prisma.user.findMany()
-    if (!user) return []
-    return user
+    const user = prisma.user.findMany();
+    if (!user) return [];
+    return user;
   } catch (error) {
-    console.log(JSON.stringify(error))
-    throw new CustomError(404, 'Error  to list all users')
+    console.log(JSON.stringify(error));
+    throw new CustomError(404, 'Error  to list all users');
   }
-}
+};
 
-const createUserInDatabase = async (name: string, email: string, cpf: string, color: string, observations?: string) => {
+const createUserInDatabase = async (
+  name: string,
+  email: string,
+  cpf: string,
+  color: string,
+  observations?: string,
+) => {
   const contentForCreateUser = {
     name,
     email,
     cpf,
     color,
-    observations
-  }
+    observations,
+  };
 
-  if (observations) contentForCreateUser['observations'] = observations
+  if (observations) contentForCreateUser.observations = observations;
 
   try {
     const user = prisma.user.create({
-      data: contentForCreateUser
-    })
-    return user
+      data: contentForCreateUser,
+    });
+    return user;
   } catch (error) {
-    console.log(JSON.stringify(error))
-    throw new CustomError(502, 'Error to create user')
+    console.log(JSON.stringify(error));
+    throw new CustomError(502, 'Error to create user');
   }
-}
+};
 
-const updateUserInDatabase = async (id: number, name: string, email: string, cpf: string, color: string, observations?: string) => {
+const updateUserInDatabase = async (
+  id: number,
+  name: string,
+  email: string,
+  cpf: string,
+  color: string,
+  observations?: string,
+) => {
   const contentForUpdateUser = {
     name,
     email,
     cpf,
     color,
-    observations
-  }
+    observations,
+  };
 
-  if (observations) contentForUpdateUser['observations'] = observations
+  if (observations) contentForUpdateUser.observations = observations;
 
   try {
     const user = prisma.user.update({
       where: {
-        id
+        id,
       },
-      data: contentForUpdateUser
-    })
-    return user
+      data: contentForUpdateUser,
+    });
+    return user;
   } catch (error) {
-    console.log(JSON.stringify(error))
-    throw new CustomError(500, 'Error to update User with id: ' + id)
+    console.log(JSON.stringify(error));
+    throw new CustomError(500, `Error to update User with id: ${id}`);
   }
-}
+};
 
 const deleteUserInDatabase = async (id: number) => {
   try {
     const user = prisma.user.delete({
       where: {
-        id
-      }
-    })
-    return user
+        id,
+      },
+    });
+    return user;
   } catch (error) {
-    console.log(JSON.stringify(error))
-    throw new CustomError(500, 'Error to delete User with id: ' + id)
+    console.log(JSON.stringify(error));
+    throw new CustomError(500, `Error to delete User with id: ${id}`);
   }
-}
+};
 
-export default { listAllUsers, createUserInDatabase, updateUserInDatabase, deleteUserInDatabase }
+export default {
+  listAllUsers,
+  createUserInDatabase,
+  updateUserInDatabase,
+  deleteUserInDatabase,
+};

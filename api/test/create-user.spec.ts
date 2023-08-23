@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+
 import userServices from '../src/services/users.service';
 
 const prisma = new PrismaClient();
@@ -9,7 +10,7 @@ describe('User Services', () => {
   afterEach(async () => {
     if (createdUserId) {
       await prisma.user.delete({
-        where: { id: createdUserId }
+        where: { id: createdUserId },
       });
     }
   });
@@ -20,11 +21,16 @@ describe('User Services', () => {
     const cpf = '123456789';
     const color = 'blue';
 
-    const user = await userServices.createUserInDatabase(name, email, cpf, color);
+    const user = await userServices.createUserInDatabase(
+      name,
+      email,
+      cpf,
+      color,
+    );
     createdUserId = user.id;
 
     const createdUser = await prisma.user.findUnique({
-      where: { id: user.id }
+      where: { id: user.id },
     });
 
     expect(createdUser).toBeTruthy();

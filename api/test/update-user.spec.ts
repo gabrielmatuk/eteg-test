@@ -8,14 +8,20 @@ describe('User Services', () => {
       name: 'User Test Updated',
       email: 'user-test-update@example.com',
       cpf: '123333333',
-      color: '#KAKAKA'
+      color: '#KAKAKA',
     };
 
+    const updatedUser = await userServices.updateUserInDatabase(
+      userIdToUpdate,
+      updatedUserData.name,
+      updatedUserData.email,
+      updatedUserData.cpf,
+      updatedUserData.color,
+    );
 
-
-    const updatedUser = await userServices.updateUserInDatabase(userIdToUpdate, updatedUserData.name, updatedUserData.email, updatedUserData.cpf, updatedUserData.color);
-
-    expect(updatedUser).toEqual(expect.objectContaining({ id: userIdToUpdate }));
+    expect(updatedUser).toEqual(
+      expect.objectContaining({ id: userIdToUpdate }),
+    );
     expect(updatedUser).toEqual(expect.objectContaining(updatedUserData));
   });
 });
