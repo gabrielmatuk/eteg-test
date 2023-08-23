@@ -10,11 +10,13 @@ export const errorHandler = (
   _next: NextFunction,
 ) => {
   if (err instanceof CustomError) {
-    const error = {
+    let error = {
       error: {
+        code: err.code,
         message: err.message,
       },
     };
+    if (!err.code) delete error.error.code;
     // Error on console -> console.log(error)
     return res.status(err.status).json(error);
   }
