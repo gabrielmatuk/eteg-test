@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import ReactLoading from "react-loading";
 import "./App.css";
 import AxiosRequests from './api';
-
+import { CPFValidation } from './validators'
 const App: React.FC = () => {
   const [loading, setLoading] = React.useState(false);
   const [formData, setFormData] = React.useState({
@@ -41,8 +41,9 @@ const App: React.FC = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-
     e.preventDefault();
+    if (!CPFValidation(formData.cpf)) return toast.error("CPF inválido!");
+
     try {
       setLoading(true);
       await AxiosRequests.createUser(formData)
