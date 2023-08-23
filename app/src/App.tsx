@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import UserForm from "./components/UserForm";
 import { ColorResult } from 'react-color';
 import { ToastContainer, toast } from "react-toastify";
-import { useAxios } from './hooks/useAxios';
 import "react-toastify/dist/ReactToastify.css";
 import ReactLoading from "react-loading";
 import "./App.css";
 import { METHODS_HTML, URL } from './constants/api';
+import AxiosRequests from './api';
 
 const App: React.FC = () => {
-
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -17,8 +17,6 @@ const App: React.FC = () => {
     color: "#f17013",
     observations: "",
   });
-  const { data, error, loading, request } = useAxios();
-  // const { loading, makeRequest, error } = useRequest();
 
   const initialFormData = {
     name: "",
@@ -44,21 +42,20 @@ const App: React.FC = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+
     e.preventDefault();
-    useEffect(() => {
-      request(URL, METHODS_HTML.POST, formData)
-    }, [data])
-    // await makeRequest(URL, METHODS_HTML.POST, formData)
-    console.log(JSON.stringify(data))
-    if (!error) {
+    try {
+      setLoading(true);
+      const res = await AxiosRequests.getAllUsers()
+      console.log(res)
       toast.success("Dados enviados com sucesso!");
       setFormData(initialFormData);
-    } else if (error === 'email') {
-      toast.error("Email já cadastrado!");
-    } else if (error === 'cpf') {
-      toast.error("CPF já cadastrado!");
-    } else {
-      toast.error("Erro ao salvar usuário!");
+      setLoading(false);
+    } catch (err: any) {
+      const errMsg = String(err.response.data.error)
+      if (errMsg.includes('email')) toast.error("Email já cadastrado!");
+      if (errMsg.includes('cpf')) toast.error("CPF já cadastrado!");
+      setLoading(false);
     }
   }
 
