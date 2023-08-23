@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import reactCSS from 'reactcss';
 import { SketchPicker, ColorResult } from 'react-color';
 
@@ -7,8 +7,8 @@ interface ColorPickerProps {
 }
 
 const ColorPicker: React.FC<ColorPickerProps> = ({ onChange }) => {
-  const [displayColorPicker, setDisplayColorPicker] = useState<boolean>(false);
-  const [color, setColor] = useState<ColorResult>({
+  const [displayColorPicker, setDisplayColorPicker] = React.useState<boolean>(false);
+  const [color, setColor] = React.useState<ColorResult>({
     rgb: { r: 241, g: 112, b: 19, a: 1 },
     hsl: { h: 25, s: 0.86, l: 0.52, a: 1 },
     hex: '#f17013',

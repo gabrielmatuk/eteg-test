@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import UserForm from "./components/UserForm";
 import { ColorResult } from 'react-color';
 import { ToastContainer, toast } from "react-toastify";
@@ -8,8 +8,8 @@ import "./App.css";
 import AxiosRequests from './api';
 
 const App: React.FC = () => {
-  const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
+  const [loading, setLoading] = React.useState(false);
+  const [formData, setFormData] = React.useState({
     name: "",
     email: "",
     cpf: "",
@@ -45,15 +45,14 @@ const App: React.FC = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await AxiosRequests.createUser(formData)
-      console.log(res)
+      await AxiosRequests.createUser(formData)
       toast.success("Usuário cadastrado com sucesso!");
       setFormData(initialFormData);
       setLoading(false);
     } catch (err: any) {
-      const errMsg = String(err.response.data.error)
-      if (errMsg.includes('email')) toast.error("Email já cadastrado!");
-      if (errMsg.includes('cpf')) toast.error("CPF já cadastrado!");
+      const responseErrorMessage = String(err.response.data.error)
+      if (responseErrorMessage.includes('email')) toast.error("Email já cadastrado!");
+      if (responseErrorMessage.includes('cpf')) toast.error("CPF já cadastrado!");
       setLoading(false);
     }
   }

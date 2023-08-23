@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React from "react";
 
 interface FormFieldProps {
   label: string;
@@ -19,7 +19,7 @@ const FormField: React.FC<FormFieldProps> = ({
   value,
   onChange,
 }) => {
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
   };
 
