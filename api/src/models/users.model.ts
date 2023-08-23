@@ -43,16 +43,28 @@ const createUserInDatabase = async (
       error instanceof Prisma.PrismaClientKnownRequestError &&
       error.code === 'P2002'
     ) {
-      throw new CustomError({
-        status: 400,
-        message: 'Email ou CPF já cadastrado',
-      });
+      if (error.meta) {
+        const { target } = error.meta;
+        if (target === 'cpf') {
+          throw new CustomError({
+            status: 400,
+            message: 'CPF já cadastrado',
+          });
+        }
+        if (target === 'email') {
+          throw new CustomError({
+            status: 400,
+            message: 'Email já cadastrado',
+          });
+        }
+      }
+      console.log(JSON.stringify(error));
+      throw new CustomError({ status: 500, message: 'Erro on create User' });
     }
-    console.log(JSON.stringify(error));
     throw new CustomError({ status: 500, message: 'Erro on create User' });
-  }
-};
 
+  };
+}
 const updateUserInDatabase = async (
   id: number,
   name: string,
