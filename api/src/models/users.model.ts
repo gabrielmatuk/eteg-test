@@ -44,7 +44,8 @@ const createUserInDatabase = async (
       error.code === 'P2002'
     ) {
       if (error.meta) {
-        const { target } = error.meta;
+        const meta = error.meta;
+        const target = meta.target;
         if (target === 'cpf') {
           throw new CustomError({
             status: 400,
