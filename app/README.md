@@ -10,6 +10,9 @@ This is the frontend of the ETEG project. Represent the form for John Doe.
 | Try a already sign E-mail      | Email já cadastrado!    | 
 
 
+## API Path
+<b>http://localhost:3000/api/users</b>
+
 ## Getting Started
 
 
@@ -19,7 +22,6 @@ This is the frontend of the ETEG project. Represent the form for John Doe.
 - Yarn
 
 ### Development
-
 
 To download the dependencies:
 
