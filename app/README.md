@@ -9,9 +9,8 @@ This is the frontend of the ETEG project. Represent the form for John Doe.
 | Try a already sign CPF   | CPF já cadastrado!      | |
 | Try a already sign E-mail      | Email já cadastrado!    | 
 
-
-## API Path
-<b>http://localhost:3000/api/users</b>
+## APP Path
+<b>http://localhost:5137/</b>
 
 ## Getting Started
 

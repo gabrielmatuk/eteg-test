@@ -10,6 +10,8 @@ This API complents a full CRUD for a user entity. Inserting on a specific table 
 | /users      | Ok (201)    | Error (200) | Error (200) | Error (204) |
 
 
+## API Path
+<b>http://localhost:3000/api/users</b>
 
 ## Getting Started
 
