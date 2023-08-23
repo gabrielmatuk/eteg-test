@@ -2,8 +2,8 @@ import { NextFunction, Request, Response } from 'express';
 
 import validators from '@validators';
 
-import CustomError from '../errors/custom-error';
-import UserServices from '../services/users.service';
+import CustomError from '@errors/custom-error'
+import UserServices from '@services/users.service'
 
 const showAllUsers = async (_: Request, res: Response, next: NextFunction) => {
   try {
