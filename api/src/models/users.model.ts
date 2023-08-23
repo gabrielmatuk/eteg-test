@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Prisma } from '@prisma/client';
 
 import CustomError from '@errors/custom-error';
 
@@ -37,7 +37,14 @@ const createUserInDatabase = async (
       data: contentForCreateUser,
     });
     return user;
-  } catch (error) {
+    /* eslint-disable-next-line */
+  } catch (error: any) {
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === 'P2002'
+    ) {
+      throw new CustomError(400, 'Email or CPF already exists');
+    }
     console.log(JSON.stringify(error));
     throw new CustomError(502, 'Error to create user');
   }

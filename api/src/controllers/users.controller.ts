@@ -7,7 +7,7 @@ const showAllUsers = async (_: Request, res: Response, next: NextFunction) => {
   try {
     const users = await UserServices.listAllUsers();
     res.status(200).json(users);
-    /* eslint-disable */
+    /* eslint-disable-next-line */
   } catch (error: any) {
     next(new CustomError(error.statusCode, error.message));
   }
@@ -34,7 +34,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
       req.body.observations,
     );
     res.status(201).json(user);
-    /* eslint-disable */
+    /* eslint-disable-next-line */
   } catch (error: any) {
     next(new CustomError(error.statusCode, error.message));
   }
@@ -66,7 +66,7 @@ const updateUser = async (req: Request, res: Response, next: NextFunction) => {
       req.body.observations,
     );
     res.status(200).json(user);
-    /* eslint-disable */
+    /* eslint-disable-next-line */
   } catch (error: any) {
     next(new CustomError(error.statusCode, error.message));
   }
@@ -80,7 +80,7 @@ const deleteUser = async (req: Request, res: Response, next: NextFunction) => {
 
     await UserServices.deleteUserInDatabase(+id);
     res.status(204);
-    /* eslint-disable */
+    /* eslint-disable-next-line */
   } catch (error: any) {
     next(new CustomError(error.statusCode, error.message));
   }
