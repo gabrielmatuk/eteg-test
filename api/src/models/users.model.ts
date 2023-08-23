@@ -33,11 +33,9 @@ const createUserInDatabase = async (
   if (observations) contentForCreateUser.observations = observations;
 
   try {
-    const user = prisma.user.create({
+    const user = await prisma.user.create({
       data: contentForCreateUser,
     });
-    console.log('Está aqui?')
-    console.log(user)
     return user;
     /* eslint-disable-next-line */
   } catch (error: any) {
