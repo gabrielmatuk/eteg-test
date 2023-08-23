@@ -12,8 +12,8 @@ rl.question('Informe o Banco de dados: (eteg-exam)', (dbPostgres) => {
     dbUser = dbUser || 'root'
     rl.question('Informe o DB PSWD: (123456)', (dbPswd) => {
       dbPswd = dbPswd || '123456'
-      rl.question('Informe o DB HOST: (localhost)', (dbHost) => {
-        dbHost = dbHost || 'localhost'
+      rl.question('Informe o DB HOST: (db)', (dbHost) => {
+        dbHost = dbHost || 'db'
         rl.question('Informe o DB PORT: (5432)', (dbPort) => {
           dbPort = dbPort || '5432'
           const databaseUrl = `DATABASE_URL=postgres://${dbUser}:${dbPswd}@${dbHost}:${dbPort}/${dbPostgres}`;
