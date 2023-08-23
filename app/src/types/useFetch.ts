@@ -1,7 +1,8 @@
+/* eslint-disable */
 export type TApiResponse = {
-  status: Number;
-  statusText: String;
+  status: number;
+  statusText: string;
   data: any;
   error: any;
-  loading: Boolean;
+  loading: boolean;
 };
