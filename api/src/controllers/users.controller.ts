@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 
+import validators from '@validators';
+
 import CustomError from '../errors/custom-error';
 import UserServices from '../services/users.service';
-import validators from '@validators'
 
 const showAllUsers = async (_: Request, res: Response, next: NextFunction) => {
   try {
@@ -19,8 +20,10 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
     console.log(req.body);
     const { name, email, cpf, color } = req.body;
 
-    if (validators.CPFValidation(cpf)) throw new CustomError(400, 'CPF inválido');
-    if (validators.emailValidation(email)) throw new CustomError(400, 'Email inválido');
+    if (validators.CPFValidation(cpf))
+      throw new CustomError(400, 'CPF inválido');
+    if (validators.emailValidation(email))
+      throw new CustomError(400, 'Email inválido');
 
     if (!name || !email || !cpf || !color) {
       throw new CustomError(
