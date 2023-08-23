@@ -50,12 +50,14 @@ const createUserInDatabase = async (
           const target: unknown = meta.target[0];
           if (target === 'cpf') {
             throw new CustomError({
+              code: 'CPF_ALREADY_EXISTS',
               status: 400,
               message: 'CPF já cadastrado',
             });
           }
           if (target === 'email') {
             throw new CustomError({
+              code: 'EMAIL_ALREADY_EXISTS',
               status: 400,
               message: 'Email já cadastrado',
             });
