@@ -48,7 +48,6 @@ const createUserInDatabase = async (
 
         if (Array.isArray(meta.target) && meta.target.length > 0) {
           const target: unknown = meta.target[0];
-          // Agora você pode trabalhar com o valor de 'target'
           if (target === 'cpf') {
             throw new CustomError({
               status: 400,
