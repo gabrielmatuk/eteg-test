@@ -5,4 +5,9 @@ export enum METHODS_HTML {
   POST = "POST",
   PUT = "PUT",
   DELETE = "DELETE",
-} 
+}
+
+export enum ERRORS_API {
+  EMAIL = "EMAIL_ALREADY_EXISTS",
+  CPF = "CPF_ALREADY_EXISTS",
+}
