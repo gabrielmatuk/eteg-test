@@ -7,7 +7,7 @@ class CustomError extends Error {
     status: number;
   }) {
     super();
-    this.code = options.message;
+    this.code = options.code;
     this.message = options.message;
     this.status = options.status;
   }
