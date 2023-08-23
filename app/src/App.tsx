@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import UserForm from "./components/UserForm";
 import { ColorResult } from 'react-color';
 import { ToastContainer, toast } from "react-toastify";
-import { useRequest } from './hooks/useFetch';
+import { useAxios } from './hooks/useAxios';
 import "react-toastify/dist/ReactToastify.css";
 import ReactLoading from "react-loading";
 import "./App.css";
@@ -17,7 +17,8 @@ const App: React.FC = () => {
     color: "#f17013",
     observations: "",
   });
-  const { loading, makeRequest, error } = useRequest();
+  const { data, error, loading, request } = useAxios();
+  // const { loading, makeRequest, error } = useRequest();
 
   const initialFormData = {
     name: "",
@@ -44,7 +45,9 @@ const App: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await makeRequest(URL, METHODS_HTML.POST, formData)
+    await request(URL, METHODS_HTML.POST, formData)
+    // await makeRequest(URL, METHODS_HTML.POST, formData)
+    console.log(JSON.stringify(data))
     if (!error) {
       toast.success("Dados enviados com sucesso!");
       setFormData(initialFormData);
