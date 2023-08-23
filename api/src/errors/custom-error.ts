@@ -4,6 +4,7 @@ class CustomError extends Error {
     message: string,
   ) {
     super(message);
+    this.status = status;
     this.name = this.constructor.name;
   }
 }
