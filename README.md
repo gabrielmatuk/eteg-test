@@ -36,4 +36,6 @@ Run the containers:
 docker compose up -d
 ```
 
-The postgres container will be running on port 5432, the API container will be running on port 3000 and the APP container will be running on port 5137.
+<b>The postgres container will be running on port 5432, the API container will be running on port 3000 and the APP container will be running on port 5137.
+
+API container path: http://localhost:3000/api/users
