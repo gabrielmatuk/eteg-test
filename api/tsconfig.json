@@ -46,6 +46,9 @@
       "@errors/*": [
         "./src/errors/*"
       ],
+      "@validators": [
+        "./src/validators/index.ts"
+      ]
     }
   },
   "exclude": [
