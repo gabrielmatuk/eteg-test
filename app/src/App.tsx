@@ -5,7 +5,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ReactLoading from "react-loading";
 import "./App.css";
-import { METHODS_HTML, URL } from './constants/api';
 import AxiosRequests from './api';
 
 const App: React.FC = () => {
@@ -46,9 +45,9 @@ const App: React.FC = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await AxiosRequests.getAllUsers()
+      const res = await AxiosRequests.createUser(formData)
       console.log(res)
-      toast.success("Dados enviados com sucesso!");
+      toast.success("Usuário cadastrado com sucesso!");
       setFormData(initialFormData);
       setLoading(false);
     } catch (err: any) {
