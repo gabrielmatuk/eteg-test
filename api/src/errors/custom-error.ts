@@ -6,9 +6,10 @@ class CustomError extends Error {
     message: string;
     status: number;
   }) {
-    super();
+    super(
+      options.message
+    )
     this.code = options.code;
-    this.message = options.message;
     this.status = options.status;
   }
 }
