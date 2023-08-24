@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-import userServices from '../src/aaa/users.service';
+import userServices from '../src/services/users.service';
 
 const prisma = new PrismaClient();
 

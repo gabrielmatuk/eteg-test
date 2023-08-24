@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 import validators from '@validators';
 import CustomError from '@errors/custom-error';
@@ -6,6 +6,7 @@ import UserServices from '@services/users.service';
 
 const showAllUsers = async (_: Request, res: Response) => {
   const users = await UserServices.listAllUsers();
+  console.log(users)
   res.status(200).json(users);
 };
 

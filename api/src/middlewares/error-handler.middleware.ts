@@ -10,7 +10,7 @@ export const errorHandler = (
   _next: NextFunction,
 ) => {
   if (err instanceof CustomError) {
-    let error = {
+    const error = {
       error: {
         code: err.code,
         message: err.message,

@@ -1,4 +1,4 @@
-import userServices from '../src/aaa/users.service';
+import userServices from '../src/services/users.service';
 
 describe('User Services', () => {
   it('should delete a user from the database', async () => {

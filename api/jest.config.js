@@ -5,7 +5,7 @@ module.exports = {
   transform: {
     '^.+\\.tsx?$': 'ts-jest'
   },
-  moduleNameMapper: {
+  moduleNameMapper: {//TODO: add module names
     /* 
     Insert module names
     */

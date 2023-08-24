@@ -1,11 +1,12 @@
 import { PrismaClient, Prisma } from '@prisma/client';
 
 import CustomError from '@errors/custom-error';
+import { createUserFilter } from '@src/filters/users.filters';
 
 const prisma = new PrismaClient();
 
 const listAllUsers = async () => {
-  return prisma.user.findMany();
+  return prisma.user.findMany() || [];
 };
 
 const createUserInDatabase = async (
@@ -15,7 +16,6 @@ const createUserInDatabase = async (
   color: string,
   observations?: string,
 ) => {
-
   try {
     const user = await prisma.user.create({
       data: {
@@ -26,45 +26,14 @@ const createUserInDatabase = async (
         observations,
       },
     });
+
     return user;
-    /* eslint-disable-next-line */
-  } catch (error: unknown) { // FIXME: Refatorar esse Catch
-    if (
-      error instanceof Prisma.PrismaClientKnownRequestError &&
-      error.code === 'P2002'
-    ) {
-      if (error.meta) {
-        const meta = error.meta;
-
-        if (Array.isArray(meta.target) && meta.target.length > 0) {
-          const target: unknown = meta.target[0];
-          if (target === 'cpf') {
-            throw new CustomError({
-              code: 'CPF_ALREADY_EXISTS',
-              status: 400,
-              message: 'CPF já cadastrado',
-            });
-          }
-          if (target === 'email') {
-            throw new CustomError({
-              code: 'EMAIL_ALREADY_EXISTS',
-              status: 400,
-              message: 'Email já cadastrado',
-            });
-          }
-        } else {
-          console.log(JSON.stringify(error));
-          throw new CustomError({ status: 500, message: 'Erro on create User - meta empty' });
-        }
-      }
-
-    }
+  } catch (error: unknown) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) createUserFilter(error);
     console.log(JSON.stringify(error));
-
     throw new CustomError({ status: 500, message: 'Erro on create User' });
-
-  };
-}
+  }
+};
 const updateUserInDatabase = async (
   id: number,
   name: string,
