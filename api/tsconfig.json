@@ -32,13 +32,13 @@
         "./src/controllers/*"
       ],
       "@models/*": [
-        "./src/models/*"
+        "src/services/*"
       ],
       "@middlewares/*": [
         "./src/middlewares/*"
       ],
       "@services/*": [
-        "./src/services/*"
+        "src/services/*"
       ],
       "@routes": [
         "./src/routes/index.ts"
