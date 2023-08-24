@@ -5,9 +5,7 @@ import CustomError from '@errors/custom-error';
 const prisma = new PrismaClient();
 
 const listAllUsers = async () => {
-  const user = prisma.user.findMany();
-  if (!user) return [];
-  return user;
+  return prisma.user.findMany();
 };
 
 const createUserInDatabase = async (
@@ -17,23 +15,20 @@ const createUserInDatabase = async (
   color: string,
   observations?: string,
 ) => {
-  const contentForCreateUser = {
-    name,
-    email,
-    cpf,
-    color,
-    observations,
-  };
-
-  if (observations) contentForCreateUser.observations = observations;
 
   try {
     const user = await prisma.user.create({
-      data: contentForCreateUser,
+      data: {
+        name,
+        email,
+        cpf,
+        color,
+        observations,
+      },
     });
     return user;
     /* eslint-disable-next-line */
-  } catch (error: unknown) {
+  } catch (error: unknown) { // FIXME: Refatorar esse Catch
     if (
       error instanceof Prisma.PrismaClientKnownRequestError &&
       error.code === 'P2002'
@@ -78,48 +73,26 @@ const updateUserInDatabase = async (
   color: string,
   observations?: string,
 ) => {
-  const contentForUpdateUser = {
-    name,
-    email,
-    cpf,
-    color,
-    observations,
-  };
-
-  if (observations) contentForUpdateUser.observations = observations;
-
-  try {
-    const user = prisma.user.update({
-      where: {
-        id,
-      },
-      data: contentForUpdateUser,
-    });
-    return user;
-  } catch (error) {
-    console.log(JSON.stringify(error));
-    throw new CustomError({
-      status: 500,
-      message: `Error to update User with id: ${id}`,
-    });
-  }
+  return prisma.user.update({
+    where: {
+      id,
+    },
+    data: {
+      name,
+      email,
+      cpf,
+      color,
+      observations,
+    },
+  });
 };
 
 const deleteUserInDatabase = async (id: number) => {
-  try {
-    const user = prisma.user.delete({
-      where: {
-        id,
-      },
-    });
-    return user;
-  } catch (error) {
-    console.log(JSON.stringify(error));
-    throw new CustomError({
-      status: 500,
-      message: `Error to delete User with id: ${id}`,
-    });
-  }
+  return prisma.user.delete({
+    where: {
+      id,
+    },
+  });
 };
 
 export default {
