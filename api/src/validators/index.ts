@@ -4,6 +4,16 @@ import { Request } from 'express';
 import { REGEX_CPF } from '@constants';
 import CustomError from '@src/errors/custom-error';
 
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
+const errorHandler = (err: any) => {
+  const errors: Record<string, string> = {};
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+  err.inner.forEach((error: any) => {
+    errors[error.path] = error.message;
+  });
+  throw new CustomError(400, errors);
+};
+
 const schema = yup.object({
   name: yup
     .string()
@@ -18,33 +28,33 @@ const schema = yup.object({
   observations: yup.string().optional(),
 });
 
-
 export const userCreateValidator = async (req: Request) => {
-
-  return schema.validate(req.body, { abortEarly: false }).catch(_errorHandler);
+  return schema.validate(req.body, { abortEarly: false }).catch(errorHandler);
 };
 
 export const userUpdateValidator = async (req: Request) => {
-  const updateSchema = yup.object({
-    id: yup.number().required('O campo id é obrigatório.').typeError('O campo id deve ser um número.'),
-  }).concat(schema)
-  const { body, params } = req
-  return updateSchema.validate({ ...body, id: params.id }, { abortEarly: false }).catch(_errorHandler)
-}
+  const updateSchema = yup
+    .object({
+      id: yup
+        .number()
+        .required('O campo id é obrigatório.')
+        .typeError('O campo id deve ser um número.'),
+    })
+    .concat(schema);
+  const { body, params } = req;
+  return updateSchema
+    .validate({ ...body, id: params.id }, { abortEarly: false })
+    .catch(errorHandler);
+};
 
 export const userDeleteValidator = async (req: Request) => {
   const deleteSchema = yup.object({
-    id: yup.number().required('O campo id é obrigatório.').typeError('O campo id deve ser um número.'),
-  })
-  return deleteSchema.validate(req.params, { abortEarly: false }).catch(_errorHandler)
-}
-
-// eslint-disable-next-line  @typescript-eslint/no-explicit-any
-const _errorHandler = (err: any) => {
-  const errors: Record<string, string> = {};
-  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-  err.inner.forEach((error: any) => {
-    errors[error.path] = error.message;
+    id: yup
+      .number()
+      .required('O campo id é obrigatório.')
+      .typeError('O campo id deve ser um número.'),
   });
-  throw new CustomError(400, errors);
+  return deleteSchema
+    .validate(req.params, { abortEarly: false })
+    .catch(errorHandler);
 };
