@@ -1,7 +1,12 @@
-import UserModel from '@models/users.model';
+import { PrismaClient, Prisma } from '@prisma/client';
 
-const listAllUsers = async () => {
-  return UserModel.listAllUsers();
+import CustomError from '@errors/custom-error';
+import { createUserFilter } from '@src/filters/users.filters';
+
+const prisma = new PrismaClient();
+
+const findUsers = async () => {
+  return prisma.user.findMany() || [];
 };
 
 const createUserInDatabase = async (
@@ -11,9 +16,25 @@ const createUserInDatabase = async (
   color: string,
   observations?: string,
 ) => {
-  return UserModel.createUserInDatabase(name, email, cpf, color, observations);
-};
+  try {
+    const user = await prisma.user.create({
+      data: {
+        name,
+        email,
+        cpf,
+        color,
+        observations,
+      },
+    });
 
+    return user;
+  } catch (error: unknown) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError)
+      createUserFilter(error);
+    console.log(JSON.stringify(error));
+    throw new CustomError(500, 'Erro on create User');
+  }
+};
 const updateUserInDatabase = async (
   id: number,
   name: string,
@@ -22,21 +43,30 @@ const updateUserInDatabase = async (
   color: string,
   observations?: string,
 ) => {
-  return UserModel.updateUserInDatabase(
-    id,
-    name,
-    email,
-    cpf,
-    color,
-    observations,
-  );
+  return prisma.user.update({
+    where: {
+      id,
+    },
+    data: {
+      name,
+      email,
+      cpf,
+      color,
+      observations,
+    },
+  });
 };
 
 const deleteUserInDatabase = async (id: number) => {
-  return UserModel.deleteUserInDatabase(id);
+  return prisma.user.delete({
+    where: {
+      id,
+    },
+  });
 };
+
 export default {
-  listAllUsers,
+  findUsers,
   createUserInDatabase,
   updateUserInDatabase,
   deleteUserInDatabase,

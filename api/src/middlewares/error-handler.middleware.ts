@@ -1,23 +1,24 @@
-import { Request, Response, NextFunction, ErrorRequestHandler } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 import CustomError from '@errors/custom-error';
 
 export const errorHandler = (
-  err: ErrorRequestHandler,
+  err: Error,
   _req: Request,
   res: Response,
   /* eslint-disable-next-line */
   _next: NextFunction,
 ) => {
   if (err instanceof CustomError) {
-    let error = {
+    const error = {
       error: {
         code: err.code,
-        message: err.message,
+        message: err.getError(),
       },
     };
-    if (!err.code) delete error.error.code;
-    return res.status(err.status).json(error);
+    console.log(err.getError());
+    return res.status(err.getStatus()).json(error);
   }
+  console.log(err.stack);
   return res.status(500).json({ error: 'Internal Server Error' });
 };
