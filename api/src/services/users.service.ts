@@ -5,7 +5,7 @@ import { createUserFilter } from '@src/filters/users.filters';
 
 const prisma = new PrismaClient();
 
-const listAllUsers = async () => {
+const findUsers = async () => {
   return prisma.user.findMany() || [];
 };
 
@@ -29,9 +29,10 @@ const createUserInDatabase = async (
 
     return user;
   } catch (error: unknown) {
-    if (error instanceof Prisma.PrismaClientKnownRequestError) createUserFilter(error);
+    if (error instanceof Prisma.PrismaClientKnownRequestError)
+      createUserFilter(error);
     console.log(JSON.stringify(error));
-    throw new CustomError({ status: 500, message: 'Erro on create User' });
+    throw new CustomError(500, 'Erro on create User');
   }
 };
 const updateUserInDatabase = async (
@@ -65,7 +66,7 @@ const deleteUserInDatabase = async (id: number) => {
 };
 
 export default {
-  listAllUsers,
+  findUsers,
   createUserInDatabase,
   updateUserInDatabase,
   deleteUserInDatabase,

@@ -1,85 +1,61 @@
 import { Request, Response, NextFunction } from 'express';
 
-import validators from '@validators';
-import CustomError from '@errors/custom-error';
 import UserServices from '@services/users.service';
+import { userCreateValidator, userUpdateValidator, userDeleteValidator } from '@src/validators';
 
-const showAllUsers = async (_: Request, res: Response) => {
-  const users = await UserServices.listAllUsers();
-  console.log(users)
-  res.status(200).json(users);
+const find = async (_: Request, res: Response, next: NextFunction) => {
+  try {
+    const users = await UserServices.findUsers();
+    res.status(200).json(users);
+  } catch (err) {
+    next(err);
+  }
 };
 
-const createUser = async (req: Request, res: Response) => {
-  console.log(req.body);
-  const { name, email, cpf, color } = req.body;
+const createUser = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { name, email, cpf, color, observations } = await userCreateValidator(req);
 
-  if (!validators.CPFValidation(cpf))
-    throw new CustomError({ status: 400, message: 'CPF inválido' });
-  if (!validators.emailValidation(email))
-    throw new CustomError({ status: 400, message: 'Email inválido' });
+    const user = await UserServices.createUserInDatabase(
+      name,
+      email,
+      cpf,
+      color,
+      observations,
+    );
+    res.status(201).json(user);
+  } catch (err) {
+    next(err);
+  }
+};
 
-  if (!name || !email || !cpf || !color) {
-    throw new CustomError({
-      status: 400,
-      message: 'Os campos name, email, cpf, color são obrigatórios.',
-    });
+const updateUser = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+
+    const { name, email, cpf, color, observations, id } = await userUpdateValidator(req);
+    const user = await UserServices.updateUserInDatabase(
+      id,
+      name,
+      email,
+      cpf,
+      color,
+      observations
+    );
+    res.status(200).json(user);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const deleteUser = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = await userDeleteValidator(req);
+    await UserServices.deleteUserInDatabase(id);
+    res.status(204);
+  } catch (err) {
+    next(err)
   }
 
-  if (!req.body.observations) req.body.observations = null;
-  const user = await UserServices.createUserInDatabase(
-    name,
-    email,
-    cpf,
-    color,
-    req.body.observations,
-  );
-  res.status(201).json(user);
 };
 
-const updateUser = async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const { name, email, cpf, color } = req.body;
-  if (!name || !email || !cpf || !color) {
-    throw new CustomError({
-      status: 400,
-      message: 'Os campos name, email, cpf, color são obrigatórios.',
-    });
-  }
-
-  if (!id)
-    throw new CustomError({
-      status: 400,
-      message: 'O campo id é obrigatório.',
-    });
-
-  if (typeof id !== 'string')
-    throw new CustomError({
-      status: 400,
-      message: 'O campo id deve ser um número.',
-    });
-
-  const user = await UserServices.updateUserInDatabase(
-    +id,
-    name,
-    email,
-    cpf,
-    color,
-    req.body.observations,
-  );
-  res.status(200).json(user);
-};
-
-const deleteUser = async (req: Request, res: Response) => {
-  const { id } = req.params;
-  if (!id)
-    throw new CustomError({
-      status: 400,
-      message: 'O campo id é obrigatório.',
-    });
-
-  await UserServices.deleteUserInDatabase(+id);
-  res.status(204);
-};
-
-export default { showAllUsers, createUser, updateUser, deleteUser };
+export default { find, createUser, updateUser, deleteUser };

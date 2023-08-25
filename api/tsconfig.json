@@ -43,6 +43,9 @@
       "@routes": [
         "./src/routes/index.ts"
       ],
+      "@constants": [
+        "./src/constants/index.ts"
+      ],
       "@errors/*": [
         "./src/errors/*"
       ],

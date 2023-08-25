@@ -1,11 +1,50 @@
-const CPFValidation = (cpf: string) => {
-  const cpfRegex = /[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}-?[0-9]{2}/;
-  return cpfRegex.test(cpf);
+import * as yup from 'yup';
+import { Request } from 'express';
+
+import { REGEX_CPF } from '@constants';
+import CustomError from '@src/errors/custom-error';
+
+const schema = yup.object({
+  name: yup
+    .string()
+    .required('O campo name é obrigatório.')
+    .typeError('O campo name deve ser uma string.'),
+  email: yup
+    .string()
+    .email('O campo email deve ser um email válido.')
+    .required('O campo email é obrigatório.'),
+  cpf: yup.string().matches(REGEX_CPF).required('O campo cpf é obrigatório.'),
+  color: yup.string().required('O campo color é obrigatório.'),
+  observations: yup.string().optional(),
+});
+
+
+export const userCreateValidator = async (req: Request) => {
+
+  return schema.validate(req.body, { abortEarly: false }).catch(_errorHandler);
 };
 
-const emailValidation = (email: string) => {
-  const emailRegex = /\S+@\S+\.\S+/;
-  return emailRegex.test(email);
-};
+export const userUpdateValidator = async (req: Request) => {
+  const updateSchema = yup.object({
+    id: yup.number().required('O campo id é obrigatório.').typeError('O campo id deve ser um número.'),
+  }).concat(schema)
+  const { body, params } = req
+  return updateSchema.validate({ ...body, id: params.id }, { abortEarly: false }).catch(_errorHandler)
+}
 
-export default { CPFValidation, emailValidation };
+export const userDeleteValidator = async (req: Request) => {
+  const deleteSchema = yup.object({
+    id: yup.number().required('O campo id é obrigatório.').typeError('O campo id deve ser um número.'),
+  })
+  return deleteSchema.validate(req.params, { abortEarly: false }).catch(_errorHandler)
+}
+
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
+const _errorHandler = (err: any) => {
+  const errors: Record<string, string> = {};
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+  err.inner.forEach((error: any) => {
+    errors[error.path] = error.message;
+  });
+  throw new CustomError(400, errors);
+};
